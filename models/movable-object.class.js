@@ -5,6 +5,7 @@ class movableObject extends DrawableObject {
     acceleration = 2.5;
     energy = 100;
     currentCoins = 0;
+    currentBottle = 0;
     lastHit = 0;
     offset = {
         top: 0,
@@ -50,6 +51,15 @@ class movableObject extends DrawableObject {
     collecting() {
         this.currentCoins++;
     }
+    collectingBottle() {
+        this.currentBottle++;
+    }
+    useBottle() {
+    if (this.currentBottle > 0) {
+        this.currentBottle--;
+    }
+}
+
 
     isHurt() {
         let timepassed = new Date().getTime() - this.lastHit; //Difference in ms 

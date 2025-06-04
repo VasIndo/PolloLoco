@@ -27,16 +27,25 @@ class World {
         setInterval(() => {
             this.checkCollissionEnemies();
             this.checkCollissionCoins();
+            this.checkCollissionBottles();
             this.checkThrowObjects();
         }, 200);
     }
 
     checkThrowObjects() {
-        if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
+        if (this.keyboard.D && this.character.currentBottle > 0 && !this.bottleAlreadyThrown) {
+            this.bottleAlreadyThrown = true; // optional: damit man nicht spammen kann
+            let bottle = new ThrowableObject(this.character.x + 50, this.character.y + 100);
             this.throwableObjects.push(bottle);
+            this.character.useBottle();               // -= 1
+            this.bottleBar.setBottles(this.character.currentBottle); // Update Bar
+
+            setTimeout(() => {
+                this.bottleAlreadyThrown = false;
+            }, 500); // z. B. 0.5 Sekunden Pause
         }
     }
+
 
     checkCollissionEnemies() {
         this.level.enemies.forEach((enemy) => {
@@ -54,6 +63,17 @@ class World {
                 this.level.coins.splice(i, 1); // sicher entfernen
                 this.character.collecting();
                 this.coinBar.setCoins(this.character.currentCoins);
+            }
+        }
+    }
+
+    checkCollissionBottles() {
+        for (let i = this.level.bottles.length - 1; i >= 0; i--) {
+            const bottle = this.level.bottles[i];
+            if (this.character.isColliding(bottle)) {
+                this.level.bottles.splice(i, 1); // sicher entfernen
+                this.character.collectingBottle();
+                this.bottleBar.setBottles(this.character.currentBottle);
             }
         }
     }
