@@ -12,9 +12,9 @@ class Coin extends movableObject {
     ];
 
     constructor() {
-        super();  // Superklasse korrekt aufrufen
-        this.loadImage(this.IMAGES_COIN[0]);  // Einzelbild
-        this.loadImages(this.IMAGES_COIN);    // Array für Animation
+        super();  
+        this.loadImage(this.IMAGES_COIN[0]);  
+        this.loadImages(this.IMAGES_COIN);    
         this.animate();
         this.x = 450 + Math.random() * 1500;
     }
