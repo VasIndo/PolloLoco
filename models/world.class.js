@@ -24,26 +24,39 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkCollission();
+            this.checkCollissionEnemies();
+            this.checkCollissionCoins();
             this.checkThrowObjects();
         }, 200);
     }
 
-    checkThrowObjects(){
+    checkThrowObjects() {
         if (this.keyboard.D) {
-            let bottle = new ThrowableObject(this.character.x +100, this.character.y + 100);
+            let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
             this.throwableObjects.push(bottle);
         }
     }
 
-    checkCollission() {
+    checkCollissionEnemies() {
         this.level.enemies.forEach((enemy) => {
             if (this.character.isColliding(enemy)) {
                 this.character.hit();
-                this.statusBar.setPercentage(this.character.energy)
+                this.statusBar.setPercentage(this.character.energy);
             }
         });
     }
+
+    checkCollissionCoins() {
+        for (let i = this.level.coins.length - 1; i >= 0; i--) {
+            const coin = this.level.coins[i];
+            if (this.character.isColliding(coin)) {
+                this.level.coins.splice(i, 1); // sicher entfernen
+                this.character.collecting();
+                this.coinBar.setCoins(this.character.currentCoins);
+            }
+        }
+    }
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
