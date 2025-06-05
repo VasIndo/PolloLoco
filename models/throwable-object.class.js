@@ -38,8 +38,8 @@ class ThrowableObject extends movableObject {
         this.throwInterval = setInterval(() => {
             this.x += 10;
 
-            // Prüfen, ob Flasche auf Boden aufkommt (z.B. Bodenhöhe = 340)
-            if (this.y >= 370) {
+            // Prüfen, ob Flasche auf Boden aufkommt (z.B. Bodenhöhe = 330)
+            if (this.y >= 330) {
                 this.splash();
             }
         }, 25);
