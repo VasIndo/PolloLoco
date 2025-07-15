@@ -55,10 +55,10 @@ class movableObject extends DrawableObject {
         this.currentBottle++;
     }
     useBottle() {
-    if (this.currentBottle > 0) {
-        this.currentBottle--;
+        if (this.currentBottle > 0) {
+            this.currentBottle--;
+        }
     }
-}
 
 
     isHurt() {

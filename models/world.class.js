@@ -39,7 +39,6 @@ class World {
             this.throwableObjects.push(bottle);
             this.character.useBottle();               // -= 1
             this.bottleBar.setBottles(this.character.currentBottle); // Update Bar
-
             setTimeout(() => {
                 this.bottleAlreadyThrown = false;
             }, 500); // z. B. 0.5 Sekunden Pause
@@ -76,6 +75,10 @@ class World {
                 this.bottleBar.setBottles(this.character.currentBottle);
             }
         }
+    }
+
+    hitEnemy() {
+        
     }
 
 
